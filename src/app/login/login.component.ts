@@ -25,8 +25,9 @@ export class LoginComponent {
       return;
     }
       this.authService.login(this.loginForm.value).subscribe(response => { 
+        this.authService.saveToken(response.access_token); 
         console.log('Usuario Logueado!');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/appointments']);
       }, error => {  
         console.error('Login error', error);  
         this.errorMessage = 'Email o contaseña inválido';  

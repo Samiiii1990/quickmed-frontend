@@ -1,0 +1,20 @@
+<form [formGroup]="appointmentForm" (ngSubmit)="onSchedule()">
+    <div>
+      <label for="patientDNI">DNI paciente:</label>
+      <input type="dni" id="patientDNI" formControlName="patientDNI" />
+    </div>
+    <div>
+      <label for="appointmentDate">Fecha:</label>
+      <input type="date" id="appointmentDate" formControlName="appointmentDate" />
+    </div>
+    <div>
+      <label for="appointmentTime">Hora:</label>
+      <input type="time" id="appointmentTime" formControlName="appointmentTime" />
+    </div>
+    <div>
+      <label for="reason">Motivo de la Consulta:</label>
+      <textarea id="reason" formControlName="reason"></textarea>
+    </div>
+    <button type="submit">Agendar Turno</button>
+  </form>
+  
