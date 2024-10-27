@@ -7,5 +7,10 @@
       <label for="password">Password:</label>  
       <input type="password" id="password" formControlName="password">  
     </div>  
+          <!-- Mensaje de error general -->
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+        
     <button type="submit">Registrarme</button>  
   </form>

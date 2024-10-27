@@ -24,7 +24,6 @@ export class LoginComponent {
       this.errorMessage = 'Por favor ingresa tu email y contraseña correctamente';
       return;
     }
-
       this.authService.login(this.loginForm.value).subscribe(response => { 
         console.log('Usuario Logueado!');
         this.router.navigate(['/home']);
