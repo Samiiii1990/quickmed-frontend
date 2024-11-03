@@ -19,19 +19,22 @@ export class LoginComponent {
     });  
   }  
 
-  onLogin() {  
-    if (this.loginForm.invalid) {  
-      this.errorMessage = 'Por favor ingresa tu email y contraseña correctamente';
-      return;
+  onLogin() {
+    if (this.loginForm.invalid) {
+        this.errorMessage = 'Por favor ingresa tu email y contraseña correctamente';
+        return;
     }
-      this.authService.login(this.loginForm.value).subscribe(response => { 
-        this.authService.saveToken(response.access_token); 
+
+    this.authService.login(this.loginForm.value).subscribe(response => {
+        this.authService.saveToken(response.access_token);
         console.log('Usuario Logueado!');
-        this.router.navigate(['/appointments']);
-      }, error => {  
-        console.error('Login error', error);  
-        this.errorMessage = 'Email o contaseña inválido';  
-      });  
-    
-  }  
+
+        // Obtener el ID del paciente de la respuesta
+        const patientId = response.patientId; // Asegúrate de que este campo esté en la respuesta
+        this.router.navigate(['/scheduled-list', { id: patientId }]); // Pasar el ID del paciente a la ruta
+    }, error => {
+        console.error('Login error', error);
+        this.errorMessage = 'Email o contraseña inválido';
+    });
+}
 }

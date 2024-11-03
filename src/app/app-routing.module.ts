@@ -5,13 +5,17 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { ScheduledListComponent } from './scheduled-list/scheduled-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },  
-  { path: 'register', component: RegisterComponent },
-  { path: 'appointments', component: AppointmentsComponent,  canActivate: [AuthGuard] }
+  { path: 'register', component: RegisterComponent }, 
+  { path: 'appointments', component: AppointmentsComponent,  },
+  { path: 'appointments/:id', component: AppointmentsComponent, canActivate: [AuthGuard]  },
+  { path: 'scheduled-list', component: ScheduledListComponent, canActivate: [AuthGuard]  },
+  { path: 'scheduled-list/:id', component: ScheduledListComponent, canActivate: [AuthGuard]  } 
 
 ];
 

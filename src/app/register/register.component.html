@@ -1,16 +1,56 @@
 <form [formGroup]="registerForm" (ngSubmit)="onRegister()">  
-    <div>  
-      <label for="email">Email:</label>  
-      <input type="email" id="email" formControlName="email">  
-    </div>  
-    <div>  
-      <label for="password">Password:</label>  
-      <input type="password" id="password" formControlName="password">  
-    </div>  
-          <!-- Mensaje de error general -->
-          <div *ngIf="errorMessage" class="error-message">
-            {{ errorMessage }}
-          </div>
-        
-    <button type="submit">Registrarme</button>  
+  <div>  
+    <label for="dni">DNI:</label>  
+    <input type="text" id="dni" formControlName="dni">  
+  </div>  
+
+  <div>  
+    <label for="firstName">Nombre:</label>  
+    <input type="text" id="firstName" formControlName="firstName">  
+  </div>  
+
+  <div>  
+    <label for="lastName">Apellido:</label>  
+    <input type="text" id="lastName" formControlName="lastName">  
+  </div>  
+
+  <div>  
+    <label for="birthDate">Fecha de Nacimiento:</label>  
+    <input type="date" id="birthDate" formControlName="birthDate">  
+  </div>  
+
+  <div>  
+    <label for="phone">Teléfono:</label>  
+    <input type="tel" id="phone" formControlName="phone">  
+  </div>  
+
+  <div>  
+    <label for="email">Email:</label>  
+    <input type="email" id="email" formControlName="email">  
+  </div>  
+
+  <!-- Selección de Rol -->  
+  <div>  
+    <label for="role">Rol:</label>  
+    <select id="role" formControlName="role">  
+      <option value="" disabled selected>Selecciona un rol</option> <!-- Opción inicial deshabilitada -->  
+      <option value="paciente">Paciente</option>  
+      <option value="medico">Médico</option>  
+      <option value="administrador">Administrador</option>  
+    </select>  
+  </div>  
+  <div>  
+    <label for="password">Contraseña:</label>  
+    <input type="password" id="password" formControlName="password">  
+    <!-- Mensaje de error para el campo de password -->
+    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+      La contraseña es requerida.
+    </div>
+  </div> 
+
+  <div *ngIf="errorMessage" class="error-message">  
+    {{ errorMessage }}  
+  </div>  
+
+  <button type="submit">Registrarme</button> 
   </form>

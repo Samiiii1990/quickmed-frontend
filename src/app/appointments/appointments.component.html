@@ -4,16 +4,25 @@
       <input type="dni" id="patientDNI" formControlName="patientDNI" />
     </div>
     <div>
-      <label for="appointmentDate">Fecha:</label>
-      <input type="date" id="appointmentDate" formControlName="appointmentDate" />
+      <label for="doctorId">Selecciona un médico:</label>
+      <select id="doctorId" formControlName="doctorId">
+        <option value="" disabled>Selecciona un médico</option>
+        <option *ngFor="let doctor of doctors" [value]="doctor.id">
+          {{ doctor.name }}
+        </option>
+      </select>
     </div>
     <div>
-      <label for="appointmentTime">Hora:</label>
-      <input type="time" id="appointmentTime" formControlName="appointmentTime" />
+      <label for="date">Fecha:</label>
+      <input type="date" id="date" formControlName="date" />
     </div>
     <div>
-      <label for="reason">Motivo de la Consulta:</label>
-      <textarea id="reason" formControlName="reason"></textarea>
+      <label for="time">Hora:</label>
+      <input type="time" id="time" formControlName="time" />
+    </div>
+    <div>
+      <label for="notes">Motivo de la Consulta:</label>
+      <textarea id="notes" formControlName="notes"></textarea>
     </div>
     <button type="submit">Agendar Turno</button>
   </form>

@@ -17,7 +17,9 @@ export class AuthService {
       catchError(this.handleError)  
     );  
   }  
-
+  createPatient(patientData: any): Observable<any> {  
+    return this.http.post(`patients`, patientData); // Cambia esta URL según tu backend  
+  }  
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials, {
       withCredentials: true, // Solo si necesitas enviar cookies
