@@ -19,6 +19,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ScheduledListComponent } from './scheduled-list/scheduled-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { NavbarComponent } from './navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
     DoctorsComponent,
     SuccessDialogComponent,
     ScheduledListComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatTableModule,
     MatButtonModule,
+    MatToolbarModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration(),

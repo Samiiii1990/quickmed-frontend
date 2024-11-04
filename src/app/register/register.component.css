@@ -1,3 +1,11 @@
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
 form {
     width: 100%;
     max-width: 400px; /* Ancho máximo para dispositivos más grandes */
@@ -9,7 +17,7 @@ form {
   }
   
   form div {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
   }
   
   label {
@@ -18,9 +26,11 @@ form {
     margin-bottom: 0.5rem;
     color: #333;
   }
-  
+  input[type="date"],
   input[type="text"],
+  input[type="tel"],
   input[type="email"],
+  select[type="role"],
   input[type="password"] {
     width: 100%; /* Para que los inputs ocupen todo el ancho del contenedor */
     padding: 0.8rem;

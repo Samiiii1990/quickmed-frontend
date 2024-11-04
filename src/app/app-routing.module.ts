@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },  
   { path: 'register', component: RegisterComponent }, 
-  { path: 'appointments', component: AppointmentsComponent,  },
+  { path: 'appointments', component: AppointmentsComponent, canActivate: [AuthGuard]  },
   { path: 'appointments/:id', component: AppointmentsComponent, canActivate: [AuthGuard]  },
   { path: 'scheduled-list', component: ScheduledListComponent, canActivate: [AuthGuard]  },
   { path: 'scheduled-list/:id', component: ScheduledListComponent, canActivate: [AuthGuard]  } 
