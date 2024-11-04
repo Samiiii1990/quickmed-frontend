@@ -48,36 +48,38 @@ export class AppointmentsComponent implements OnInit {
 
   onSchedule() {
     if (this.appointmentForm.valid) {
-      // Obtener el DNI del paciente
       const patientDNI = this.appointmentForm.value.patientDNI;
   
-      // Primero, obtenemos el patientId a partir del DNI
-      this.patientService.getPatientByDni(patientDNI).subscribe({
+      this.patientService.getAllPatients().subscribe({
         next: (patients) => {
-          // Los pacientes están indexados por su ID, por lo que necesitarás recorrer el objeto
-          const patientKeys = Object.keys(patients); // Obtener las claves del objeto
-          if (patientKeys.length > 0) {
-            const patient = patients[patientKeys[0]]; // Obtener el primer paciente
+          if (Array.isArray(patients)) {
+            const patient = patients.find(p => p.dni === patientDNI);
+            console.log("🚀 ~ AppointmentsComponent ~ patient:", patient);
+            
+            if (patient) {
+              const patientId = patient.id;
   
-            const patientId = patient.id; // Acceder al id del paciente
+              const appointmentData = {
+                ...this.appointmentForm.value,
+                status: 'Agendado',
+                patientId,
+              };
   
-            // Programar la cita con el patientId obtenido
-            const appointmentData = {
-              ...this.appointmentForm.value,
-              patientId, // Agregar el patientId a los datos de la cita
-            };
-  
-            this.appointmentService.scheduleAppointment(patientId, appointmentData).subscribe(
-              response => {
-                console.log('Appointment scheduled!', response);
-                this.router.navigate(['/scheduled-list', { id: patientId }]);
-              },
-              error => {
-                console.error('Error scheduling appointment', error);
-              }
-            );
+              this.appointmentService.scheduleAppointment(patientId, appointmentData).subscribe(
+                response => {
+                  console.log('Appointment scheduled!', response);
+                  this.router.navigate(['/scheduled-list', { id: patientId }]);
+                  this.appointmentForm.reset();
+                },
+                error => {
+                  console.error('Error scheduling appointment', error);
+                }
+              );
+            } else {
+              console.error('Patient not found');
+            }
           } else {
-            console.error('Patient not found');
+            console.error('Expected an array of patients, but got:', patients);
           }
         },
         error: (err) => {

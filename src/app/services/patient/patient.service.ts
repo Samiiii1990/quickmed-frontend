@@ -19,5 +19,7 @@ export class PatientService {
     console.log("🚀 ~ PatientService ~ getPatientByDni ~ dni:", dni)
     return this.http.get<any>(`${this.apiUrl}?dni=${dni}`);
   }
-
+  getAllPatients(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
 }

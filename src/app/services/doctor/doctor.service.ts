@@ -18,4 +18,8 @@ export class DoctorService {
   addDoctor(doctor: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, doctor);
   }
+  getDoctorById(doctorId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${doctorId}`);
+  }
+  
 }

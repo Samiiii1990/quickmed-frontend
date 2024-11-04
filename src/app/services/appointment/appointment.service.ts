@@ -22,7 +22,7 @@ export class AppointmentService {
       patientId,
       ...appointmentData,
     };
-    
+    console.log("🚀 ~ AppointmentService ~ scheduleAppointment ~ dataToSend:", dataToSend)
     return this.http.post(this.apiUrl, dataToSend);
   }
 

@@ -2,8 +2,10 @@ export class AppointmentDto {
     id?: string;
     date?: string;
     time?: string;
-    doctor?: string;
+    doctorId: string = '';
     status?: string;
     patientId?: string;
+    doctorName: any;
+    doctorSpecialization: any;
   }
   
