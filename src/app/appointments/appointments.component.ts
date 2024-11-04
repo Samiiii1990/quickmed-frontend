@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class AppointmentsComponent implements OnInit {
   appointmentForm: FormGroup;
   doctors: any[] = [];
+  availableTimes: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +33,9 @@ export class AppointmentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadDoctors(); // Cargar la lista de médicos al inicializar el componente
+    this.loadDoctors();
+    this.generateAvailableTimes(); // Cargar la lista de médicos al inicializar el componente
+    
   }
 
   loadDoctors(): void {
@@ -45,7 +48,21 @@ export class AppointmentsComponent implements OnInit {
       }
     });
   }
+  generateAvailableTimes() {
+    const startHour = 8;
+    const endHour = 20;
+    const interval = 30; // Intervalo de 30 minutos
 
+    for (let hour = startHour; hour < endHour; hour++) {
+      this.availableTimes.push(`${this.formatTime(hour)}:00`);
+      this.availableTimes.push(`${this.formatTime(hour)}:30`);
+    }
+    this.availableTimes.push(`${endHour}:00`); // Añadir la última hora completa
+  }
+
+  formatTime(hour: number): string {
+    return hour < 10 ? `0${hour}` : `${hour}`;
+  }
   onSchedule() {
     if (this.appointmentForm.valid) {
       const patientDNI = this.appointmentForm.value.patientDNI;

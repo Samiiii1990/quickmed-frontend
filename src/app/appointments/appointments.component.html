@@ -5,7 +5,7 @@
     </div>
     <div>
       <label for="doctorId">Selecciona un médico:</label>
-      <select id="doctorId" formControlName="doctorId">
+      <select type="doctorId" id="doctorId" formControlName="doctorId">
         <option value="" disabled>Selecciona un médico</option>
         <option *ngFor="let doctor of doctors" [value]="doctor.id">
           {{ doctor.name }}
@@ -18,7 +18,10 @@
     </div>
     <div>
       <label for="time">Hora:</label>
-      <input type="time" id="time" formControlName="time" />
+    <select type="time" id="time" formControlName="time">
+      <option value="" disabled>Selecciona una hora</option>
+      <option *ngFor="let time of availableTimes" [value]="time">{{ time }}</option>
+    </select>
     </div>
     <div>
       <label for="notes">Motivo de la Consulta:</label>

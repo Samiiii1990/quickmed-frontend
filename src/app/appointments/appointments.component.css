@@ -20,7 +20,8 @@ form {
   input[type="dni"],
   input[type="text"],
   input[type="date"],
-  input[type="time"],
+  select[type="doctorId"],
+  select[type="time"],
   textarea {
     width: 100%;
     padding: 0.8rem;

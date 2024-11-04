@@ -26,6 +26,7 @@ export class LoginComponent {
     }
 
     this.authService.login(this.loginForm.value).subscribe(response => {
+        console.log("🚀 ~ LoginComponent ~ this.authService.login ~ response:", response)
         this.authService.saveToken(response.access_token);
         console.log('Usuario Logueado!');
 
