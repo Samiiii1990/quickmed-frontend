@@ -11,7 +11,12 @@ export class NavbarComponent implements OnInit {
   patientId: string | null = null;
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {
+    if (this.isBrowser()) {
     this.patientId = localStorage.getItem('patientId');
+    }
+  }
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined';
   }
   logout() {
     this.authService.logout();
