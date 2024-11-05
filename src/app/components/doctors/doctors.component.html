@@ -1,27 +1,26 @@
 <div class="doctors-container">
-    <h2>Doctors</h2>
-    
-    <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="name">Name:</label>
-        <input id="name" formControlName="name" />
-      </div>
-      <div>
-        <label for="specialization">Specialization:</label>
-        <input id="specialization" formControlName="specialization" />
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" formControlName="email" />
-      </div>
-      <button type="submit">Add Doctor</button>
-    </form>
-  
-    <h3>Doctor List</h3>
-    <ul>
-      <li *ngFor="let doctor of doctors">
-        {{ doctor.name }} - {{ doctor.specialization }} ({{ doctor.email }})
-      </li>
-    </ul>
-  </div>
-  
+  <h2>Doctors</h2>
+
+  <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" />
+    </div>
+    <div>
+      <label for="specialization">Specialization:</label>
+      <input id="specialization" formControlName="specialization" />
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="email" />
+    </div>
+    <button type="submit">Add Doctor</button>
+  </form>
+
+  <h3>Doctor List</h3>
+  <ul>
+    <li *ngFor="let doctor of doctors">
+      {{ doctor.name }} - {{ doctor.specialization }} ({{ doctor.email }})
+    </li>
+  </ul>
+</div>

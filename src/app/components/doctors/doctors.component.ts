@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DoctorService } from '../../services/doctor/doctor.service';
-import { Doctor } from '../../models/doctor.model'; // Importar el modelo Doctor
+import { Doctor } from '../../models/doctor.model'; 
 
 @Component({
   selector: 'app-doctors',

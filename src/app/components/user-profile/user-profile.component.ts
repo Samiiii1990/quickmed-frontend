@@ -11,18 +11,16 @@ import { MatDialog } from '@angular/material/dialog';
 export class UserProfileComponent implements OnInit {
   userProfile: User | null = null;
   patientId: string | null = null;
-  loading: boolean = true; // Estado de carga
-
-  constructor(private userProfileService: UserProfileService) {}
+  loading: boolean = true; 
+  constructor(private userProfileService: UserProfileService) { }
 
   ngOnInit(): void {
-    // Obtener el patientId de localStorage
     this.patientId = localStorage.getItem('patientId');
 
     if (this.patientId) {
       this.loadUserProfile(this.patientId);
     } else {
-      this.loading = false; // Si no hay patientId, detiene la carga
+      this.loading = false;
     }
   }
 
@@ -30,11 +28,11 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.getUserProfile(patientId).subscribe(
       (data) => {
         this.userProfile = data;
-        this.loading = false; // Detiene la carga al recibir los datos
+        this.loading = false;
       },
       (error) => {
         console.error('Error al obtener el perfil del usuario', error);
-        this.loading = false; // Detiene la carga incluso en error
+        this.loading = false;
       }
     );
   }

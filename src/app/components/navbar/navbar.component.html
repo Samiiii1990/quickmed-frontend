@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <span class="app-name">QuickMed</span>
   <span class="spacer"></span>
-  <button mat-button [routerLink]="['/scheduled-list', { id: patientId }]" routerLinkActive="active-link">Turnos Programados</button>
+  <button mat-button [routerLink]="['/scheduled-list', { id: patientId }]" routerLinkActive="active-link">Turnos
+    Programados</button>
   <button mat-button routerLink="/appointments" routerLinkActive="active-link">Programar Turno</button>
   <button mat-button routerLink="/profile" routerLinkActive="active-link">Perfil</button>
   <button mat-button (click)="logout()">Cerrar Sesión</button>

@@ -10,7 +10,7 @@ describe('ScheduledListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ScheduledListComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ScheduledListComponent);
     component = fixture.componentInstance;

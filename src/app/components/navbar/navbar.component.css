@@ -1,14 +1,13 @@
 .app-name {
-    font-weight: bold;
-    font-size: 1.2em;
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
-  
-  .active-link {
-    font-weight: bold;
-    color: #ffffff;
-  }
-  
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.active-link {
+  font-weight: bold;
+  color: #ffffff;
+}

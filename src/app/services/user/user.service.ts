@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.model'; // Ajusta la ruta según tu estructura
+import { environment } from '../../../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserProfileService {
-  private apiUrl = 'http://localhost:3000/patients'; // Ajusta esta URL según tu backend
+  private apiUrl = `${environment.apiUrl}/patients`; 
 
   constructor(private http: HttpClient) {}
 

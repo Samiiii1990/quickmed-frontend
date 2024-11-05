@@ -24,7 +24,7 @@ export class ScheduledListComponent implements OnInit {
     private appointmentService: AppointmentService,
     private authService: AuthService,
     private doctorService: DoctorService // Inyecta el servicio del doctor
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -54,7 +54,7 @@ export class ScheduledListComponent implements OnInit {
   }
 
   loadDoctors(doctorIds: string[], appointments: Appointment[]) {
-    const doctorRequests = doctorIds.map(doctorId => 
+    const doctorRequests = doctorIds.map(doctorId =>
       this.doctorService.getDoctorById(doctorId).toPromise()
     );
 

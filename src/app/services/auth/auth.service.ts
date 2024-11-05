@@ -3,12 +3,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';  
 import { catchError } from 'rxjs/operators';  
 import { StorageService } from './storage.service';
+import { environment } from '../../../../environment';
 
 @Injectable({  
   providedIn: 'root',  
 })  
 export class AuthService {  
-  private apiUrl = 'http://localhost:3000/auth';
+  private apiUrl = `${environment.apiUrl}/auth`; 
 
   constructor(private http: HttpClient, private storageService: StorageService) {}  
 

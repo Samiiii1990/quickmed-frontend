@@ -17,7 +17,7 @@ export class AppointmentsComponent implements OnInit {
   availableTimes: string[] = [];
   appointmentId: string | null = null;
   appointmentData: Appointment | null = null;
-  isEditing: boolean = false; 
+  isEditing: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +29,7 @@ export class AppointmentsComponent implements OnInit {
   ) {
     this.appointmentForm = this.fb.group({
       patientDNI: ['', Validators.required],
-      doctorId: ['', Validators.required], // Agregamos el campo para el médico
+      doctorId: ['', Validators.required],
       date: ['', Validators.required],
       time: ['', Validators.required],
       notes: ['', Validators.required],
@@ -38,7 +38,7 @@ export class AppointmentsComponent implements OnInit {
 
   ngOnInit() {
     this.loadDoctors();
-    this.generateAvailableTimes(); // Asegúrate de llamar a este método aquí
+    this.generateAvailableTimes();
     this.route.paramMap.subscribe(params => {
       this.appointmentId = params.get('appointmentId');
       if (this.appointmentId) {
@@ -69,7 +69,7 @@ export class AppointmentsComponent implements OnInit {
   loadDoctors(): void {
     this.doctorService.getDoctors().subscribe({
       next: (data) => {
-        this.doctors = data; // Guardar la lista de médicos
+        this.doctors = data;
       },
       error: (err) => {
         console.error('Error loading doctors', err);
@@ -80,15 +80,15 @@ export class AppointmentsComponent implements OnInit {
   generateAvailableTimes() {
     const startHour = 8;
     const endHour = 20;
-    const interval = 30; // Intervalo de 30 minutos
+    const interval = 30;
 
-    this.availableTimes = []; // Reinicia la lista de horas disponibles
+    this.availableTimes = [];
 
     for (let hour = startHour; hour < endHour; hour++) {
       this.availableTimes.push(`${this.formatTime(hour)}:00`);
       this.availableTimes.push(`${this.formatTime(hour)}:30`);
     }
-    this.availableTimes.push(`${this.formatTime(endHour)}:00`); // Añadir la última hora completa
+    this.availableTimes.push(`${this.formatTime(endHour)}:00`);
   }
 
   formatTime(hour: number): string {
@@ -97,60 +97,56 @@ export class AppointmentsComponent implements OnInit {
 
   onSchedule() {
     if (this.appointmentForm.valid) {
-        const patientDNI = this.appointmentForm.value.patientDNI;
+      const patientDNI = this.appointmentForm.value.patientDNI;
 
-        this.patientService.getAllPatients().subscribe({
-            next: (patients) => {
-                if (Array.isArray(patients)) {
-                    const patient = patients.find(p => p.dni === patientDNI);
-                    console.log("🚀 ~ AppointmentsComponent ~ patient:", patient);
+      this.patientService.getAllPatients().subscribe({
+        next: (patients) => {
+          if (Array.isArray(patients)) {
+            const patient = patients.find(p => p.dni === patientDNI);
 
-                    if (patient) {
-                        const patientId = patient.id;
-                        const appointmentData = {
-                            ...this.appointmentForm.value,
-                            status: this.isEditing ? 'Actualizado' : 'Agendado', // Cambia el estado dependiendo del modo
-                            patientId,
-                        };
-
-                        // Si estás editando, actualiza la cita en lugar de crear una nueva
-                        if (this.isEditing && this.appointmentId) {
-                            this.appointmentService.updateAppointment(this.appointmentId, appointmentData).subscribe(
-                                response => {
-                                    console.log('Appointment updated!', response);
-                                    this.router.navigate(['/scheduled-list', { id: patientId }]);
-                                    this.appointmentForm.reset();
-                                },
-                                error => {
-                                    console.error('Error updating appointment', error);
-                                }
-                            );
-                        } else {
-                            // Lógica para agendar una nueva cita
-                            this.appointmentService.scheduleAppointment(patientId, appointmentData).subscribe(
-                                response => {
-                                    console.log('Appointment scheduled!', response);
-                                    this.router.navigate(['/scheduled-list', { id: patientId }]);
-                                    this.appointmentForm.reset();
-                                },
-                                error => {
-                                    console.error('Error scheduling appointment', error);
-                                }
-                            );
-                        }
-                    } else {
-                        console.error('Patient not found');
-                    }
-                } else {
-                    console.error('Expected an array of patients, but got:', patients);
-                }
-            },
-            error: (err) => {
-                console.error('Error fetching patient data', err);
+            if (patient) {
+              const patientId = patient.id;
+              const appointmentData = {
+                ...this.appointmentForm.value,
+                status: this.isEditing ? 'Actualizado' : 'Agendado',
+                patientId,
+              };
+              if (this.isEditing && this.appointmentId) {
+                this.appointmentService.updateAppointment(this.appointmentId, appointmentData).subscribe(
+                  response => {
+                    console.log('Appointment updated!', response);
+                    this.router.navigate(['/scheduled-list', { id: patientId }]);
+                    this.appointmentForm.reset();
+                  },
+                  error => {
+                    console.error('Error updating appointment', error);
+                  }
+                );
+              } else {
+                this.appointmentService.scheduleAppointment(patientId, appointmentData).subscribe(
+                  response => {
+                    console.log('Appointment scheduled!', response);
+                    this.router.navigate(['/scheduled-list', { id: patientId }]);
+                    this.appointmentForm.reset();
+                  },
+                  error => {
+                    console.error('Error scheduling appointment', error);
+                  }
+                );
+              }
+            } else {
+              console.error('Patient not found');
             }
-        });
+          } else {
+            console.error('Expected an array of patients, but got:', patients);
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching patient data', err);
+        }
+      });
     } else {
-        console.error('Form is not valid');
+      console.error('Form is not valid');
     }
-}
+  }
 }

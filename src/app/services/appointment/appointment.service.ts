@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Appointment } from '../../models/appointment.model';
+import { environment } from '../../../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentService {
-  private apiUrl = 'http://localhost:3000/appointments'; // Ajusta esta URL según tu backend
+  private apiUrl = `${environment.apiUrl}/appointments`; 
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener la lista de médicos
+
   getDoctors(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/doctors`); // Asegúrate de que este endpoint exista
+    return this.http.get<any[]>(`${this.apiUrl}/doctors`); 
   }
 
   scheduleAppointment(patientId: string, appointmentData: Appointment): Observable<any> {
-    // Prepara el objeto para enviar al backend
     const dataToSend = {
       patientId,
       ...appointmentData,

@@ -9,10 +9,10 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
   patientId: string | null = null;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
   ngOnInit() {
     if (this.isBrowser()) {
-    this.patientId = localStorage.getItem('patientId');
+      this.patientId = localStorage.getItem('patientId');
     }
   }
   private isBrowser(): boolean {
