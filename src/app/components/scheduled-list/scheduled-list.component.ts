@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { AppointmentService } from '../services/appointment/appointment.service';
-import { AppointmentDto } from '../models/appointment/appointment.dto';
+import { AppointmentService } from '../../services/appointment/appointment.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth/auth.service';
-import { DoctorService } from '../services/doctor/doctor.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { DoctorService } from '../../services/doctor/doctor.service';
+import { Appointment } from '../../models/appointment.model';
 
 @Component({
   selector: 'app-scheduled-list',
@@ -15,7 +15,7 @@ import { DoctorService } from '../services/doctor/doctor.service';
 export class ScheduledListComponent implements OnInit {
   patientId!: string;
   displayedColumns: string[] = ['date', 'time', 'doctor', 'specialization', 'status'];
-  dataSource = new MatTableDataSource<AppointmentDto>();
+  dataSource = new MatTableDataSource<Appointment>();
   isLoggedIn: boolean = false;
 
   constructor(
@@ -37,13 +37,10 @@ export class ScheduledListComponent implements OnInit {
     this.appointmentService.getAppointmentsByPatientId(this.patientId).subscribe(
       appointments => {
         this.dataSource.data = appointments;
-  
-        // Obtener información de los doctores basada en doctorId en las citas
         appointments.forEach(appointment => {
           if (appointment.doctorId) {
             this.doctorService.getDoctorById(appointment.doctorId).subscribe(
               doctor => {
-                // Usar el doctorId como clave para evitar que aparezca undefined
                 appointment.doctorName = doctor.name;
                 appointment.doctorSpecialization = doctor.specialization;
               },
@@ -56,7 +53,7 @@ export class ScheduledListComponent implements OnInit {
     );
   }
 
-  loadDoctors(doctorIds: string[], appointments: AppointmentDto[]) {
+  loadDoctors(doctorIds: string[], appointments: Appointment[]) {
     const doctorRequests = doctorIds.map(doctorId => 
       this.doctorService.getDoctorById(doctorId).toPromise()
     );
@@ -67,8 +64,6 @@ export class ScheduledListComponent implements OnInit {
           map[doctor.id] = doctor;
           return map;
         }, {});
-        console.log("🚀 ~ ScheduledListComponent ~ doctorMap ~ doctorMap:", doctorMap)
-
         const appointmentsWithDoctors = appointments.map(appointment => {
           const doctor = doctorMap[appointment.doctorId];
           return {
@@ -78,7 +73,6 @@ export class ScheduledListComponent implements OnInit {
           };
         });
 
-        console.log("🚀 ~ ScheduledListComponent ~ loadDoctors ~ appointmentsWithDoctors:", appointmentsWithDoctors)
         this.dataSource.data = appointmentsWithDoctors;
       })
       .catch(error => {
@@ -87,7 +81,6 @@ export class ScheduledListComponent implements OnInit {
   }
 
   navigateToSchedule() {
-    console.log("Navigating to schedule...");
     this.router.navigate(['/appointments', this.patientId]);
   }
 }

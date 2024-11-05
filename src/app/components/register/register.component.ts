@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth/auth.service';
-import { PatientService } from '../services/patient/patient.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { PatientService } from '../../services/patient/patient.service';
 import { Router } from '@angular/router';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -36,31 +37,28 @@ export class RegisterComponent {
       this.errorMessage = 'Por favor completa todos los campos correctamente';
       return;
     }
-  
-    // Registro del usuario
-    this.authService.register(this.registerForm.value).subscribe(
+
+    const newUser: User = this.registerForm.value;
+
+    this.authService.register(newUser).subscribe(
       response => {
         console.log('User registered!', response);
-        localStorage.setItem('emailForm', response.email);
-  
-        // Verificar el rol seleccionado
-        if (this.registerForm.value.role === 'paciente') { // Asegúrate de que el valor del rol coincida
-          // Crear el paciente ahora
+
+        if (newUser.role === 'paciente') {
           const patientData = {
-            dni: this.registerForm.value.dni,
-            firstName: this.registerForm.value.firstName,
-            lastName: this.registerForm.value.lastName,
-            birthDate: this.registerForm.value.birthDate,
-            phone: this.registerForm.value.phone,
-            email: this.registerForm.value.email,
-            userId: response.userId // Asegúrate de que este campo esté presente
+            dni: newUser.dni,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            birthDate: newUser.birthDate,
+            phone: newUser.phone,
+            email: newUser.email,
+            userId: response.userId
           };
-  
-          // Ahora puedes llamar a createPatient
+
           this.patientService.addPatient(patientData).subscribe(
             patientResponse => {
               console.log('Patient registered!', patientResponse);
-              this.router.navigate(['/login']); // Redirigir a login después del registro
+              this.router.navigate(['/login']);
             },
             error => {
               console.error('Error creating patient', error);
@@ -68,9 +66,8 @@ export class RegisterComponent {
             }
           );
         } else {
-          // Si no es paciente, redirigir o manejar el caso de otra manera
           console.log('El rol seleccionado no requiere la creación de un paciente.');
-          this.router.navigate(['/login']); // Redirigir a login
+          this.router.navigate(['/login']);
         }
       },
       error => {

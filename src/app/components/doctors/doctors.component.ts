@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DoctorService } from '../services/doctor/doctor.service'; // Ensure this is the correct path
+import { DoctorService } from '../../services/doctor/doctor.service';
+import { Doctor } from '../../models/doctor.model'; // Importar el modelo Doctor
 
 @Component({
   selector: 'app-doctors',
   templateUrl: './doctors.component.html',
 })
 export class DoctorsComponent implements OnInit {
-  doctors: any[] = []; // You can define a more specific type if you have a Doctor interface
+  doctors: Doctor[] = [];
   doctorForm: FormGroup;
 
   constructor(private fb: FormBuilder, private doctorService: DoctorService) {
@@ -24,7 +25,7 @@ export class DoctorsComponent implements OnInit {
 
   loadDoctors(): void {
     this.doctorService.getDoctors().subscribe(
-      (doctors) => {
+      (doctors: Doctor[]) => {
         this.doctors = doctors;
       },
       (error) => {
@@ -35,10 +36,11 @@ export class DoctorsComponent implements OnInit {
 
   onSubmit(): void {
     if (this.doctorForm.valid) {
-      this.doctorService.addDoctor(this.doctorForm.value).subscribe(
-        (newDoctor) => {
-          this.doctors.push(newDoctor); // Add the new doctor to the list
-          this.doctorForm.reset(); // Reset the form
+      const newDoctor: Doctor = this.doctorForm.value; 
+      this.doctorService.addDoctor(newDoctor).subscribe(
+        (addedDoctor: Doctor) => { 
+          this.doctors.push(addedDoctor);
+          this.doctorForm.reset();
         },
         (error) => {
           console.error('Error adding doctor', error);

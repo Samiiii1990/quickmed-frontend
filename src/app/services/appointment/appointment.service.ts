@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppointmentDto } from '../../models/appointment/appointment.dto';
+import { Appointment } from '../../models/appointment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,18 +16,17 @@ export class AppointmentService {
     return this.http.get<any[]>(`${this.apiUrl}/doctors`); // Asegúrate de que este endpoint exista
   }
 
-  scheduleAppointment(patientId: string, appointmentData: AppointmentDto): Observable<any> {
+  scheduleAppointment(patientId: string, appointmentData: Appointment): Observable<any> {
     // Prepara el objeto para enviar al backend
     const dataToSend = {
       patientId,
       ...appointmentData,
     };
-    console.log("🚀 ~ AppointmentService ~ scheduleAppointment ~ dataToSend:", dataToSend)
     return this.http.post(this.apiUrl, dataToSend);
   }
 
-  getAppointmentsByPatientId(patientId: string): Observable<AppointmentDto[]> {
-    return this.http.get<AppointmentDto[]>(`${this.apiUrl}/patients/${patientId}`);
+  getAppointmentsByPatientId(patientId: string): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`${this.apiUrl}/patients/${patientId}`);
   }
 
   getAppointmentsByDni(dni: string): Observable<any[]> {

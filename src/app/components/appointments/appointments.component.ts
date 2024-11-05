@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppointmentService } from '../services/appointment/appointment.service';
-import { DoctorService } from '../services/doctor/doctor.service';
-import { PatientService } from '../services/patient/patient.service';
+import { AppointmentService } from '../../services/appointment/appointment.service';
+import { DoctorService } from '../../services/doctor/doctor.service';
+import { PatientService } from '../../services/patient/patient.service';
 import { Router } from '@angular/router';
 
 
