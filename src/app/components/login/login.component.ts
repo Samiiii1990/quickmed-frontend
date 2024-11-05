@@ -34,6 +34,7 @@ export class LoginComponent {
       console.log('Usuario Logueado!');
 
       const patientId = response.patientId;
+      localStorage.setItem('patientId', patientId);
       this.router.navigate(['/scheduled-list', { id: patientId }]);
     }, error => {
       console.error('Login error', error);

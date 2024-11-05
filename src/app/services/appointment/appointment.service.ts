@@ -24,7 +24,9 @@ export class AppointmentService {
     };
     return this.http.post(this.apiUrl, dataToSend);
   }
-
+  getAppointmentById(appointmentId: string): Observable<Appointment> {
+    return this.http.get<Appointment>(`${this.apiUrl}/${appointmentId}`);
+  }
   getAppointmentsByPatientId(patientId: string): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(`${this.apiUrl}/patients/${patientId}`);
   }
@@ -32,4 +34,13 @@ export class AppointmentService {
   getAppointmentsByDni(dni: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}?dni=${dni}`);
   }
+
+  updateAppointment(appointmentId: string, appointmentData: Appointment): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${appointmentId}`, appointmentData);
+  }
+
+  deleteAppointment(appointmentId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${appointmentId}`);
+  }
+  
 }

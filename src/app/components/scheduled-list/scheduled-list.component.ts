@@ -80,6 +80,24 @@ export class ScheduledListComponent implements OnInit {
       });
   }
 
+  editAppointment(appointmentId: string, appointment: Appointment) {
+    this.router.navigate(['/appointments', this.patientId, { appointmentId, ...appointment }]);
+  }
+
+  deleteAppointment(appointmentId: string) {
+    if (confirm("¿Estás seguro de que deseas eliminar este turno?")) {
+      this.appointmentService.deleteAppointment(appointmentId).subscribe(
+        response => {
+          console.log('Turno eliminado!', response);
+          this.loadPatientAppointments();
+        },
+        error => {
+          console.error('Error eliminando el turno', error);
+          alert('Hubo un error al eliminar el turno.');
+        }
+      );
+    }
+  }
   navigateToSchedule() {
     this.router.navigate(['/appointments', this.patientId]);
   }
