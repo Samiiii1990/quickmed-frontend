@@ -1,0 +1,29 @@
+<div class="profile-container" *ngIf="!loading">
+    <h2 class="profile-title">Perfil de Usuario</h2>
+    <div class="profile-details">
+      <div class="profile-item">
+        <strong>DNI:</strong> <span>{{ userProfile?.dni }}</span>
+      </div>
+      <div class="profile-item">
+        <strong>Nombre:</strong> <span>{{ userProfile?.firstName }} {{ userProfile?.lastName }}</span>
+      </div>
+      <div class="profile-item">
+        <strong>Fecha de Nacimiento:</strong> <span>{{ userProfile?.birthDate | date }}</span>
+      </div>
+      <div class="profile-item">
+        <strong>Teléfono:</strong> <span>{{ userProfile?.phone }}</span>
+      </div>
+      <div class="profile-item">
+        <strong>Email:</strong> <span>{{ userProfile?.email }}</span>
+      </div>
+      <div class="profile-item">
+        <strong>Rol:</strong> <span>{{ userProfile?.role }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Cargando perfil...</p>
+  </div>
+  
