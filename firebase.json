@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "https://quickmed-backend-7poa.onrender.com/api/**"
       }
     ]
   }
